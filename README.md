@@ -1,0 +1,1 @@
+This is a flight booking system API built with Node.js, Express, Sequelize, and PostgreSQL. It provides endpoints for managing flights, passengers, and bookings. The API is designed to be RESTful and follows best practices for building scalable and maintainable APIs.
