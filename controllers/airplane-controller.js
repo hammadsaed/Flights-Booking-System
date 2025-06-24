@@ -16,10 +16,22 @@ const createAirplane = async (req, res) => {
     return res.status(StatusCodes.CREATED).json(successResponse);
   } catch (error) {
     errorResponse.error = error;
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse);
+    return res.status(error.statusCode).json(errorResponse);
+  }
+};
+
+const getAirplanes = async (req, res) => {
+  try {
+    const airplanes = await airplaneService.getAirplanes();
+    successResponse.data = airplanes;
+    return res.status(StatusCodes.OK).json(successResponse);
+  } catch (error) {
+    errorResponse.error = error;
+    return res.status(error.statusCode).json(errorResponse);
   }
 };
 
 module.exports = {
   createAirplane,
+  getAirplanes,
 };

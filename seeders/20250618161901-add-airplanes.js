@@ -21,7 +21,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        modelNumber: "Airbus321",
+        modelNumber: "Airbus380",
         capacity: 250,
         createdAt: new Date(),
         updatedAt: new Date(),
