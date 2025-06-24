@@ -31,7 +31,31 @@ const getAirplanes = async (req, res) => {
   }
 };
 
+const getAirplane = async (req, res) => {
+  try {
+    const airplane = await airplaneService.getAirplane(req.params.id);
+    successResponse.data = airplane;
+    return res.status(StatusCodes.OK).json(successResponse);
+  } catch (error) {
+    errorResponse.error = error;
+    return res.status(error.statusCode).json(errorResponse);
+  }
+};
+
+const destroyAirplane = async (req, res) => {
+  try {
+    const airplane = await airplaneService.destroyAirplane(req.params.id);
+    successResponse.data = airplane;
+    return res.status(StatusCodes.OK).json(successResponse);
+  } catch (error) {
+    errorResponse.error = error;
+    return res.status(error.statusCode).json(errorResponse);
+  }
+};
+
 module.exports = {
   createAirplane,
   getAirplanes,
+  getAirplane,
+  destroyAirplane,
 };
