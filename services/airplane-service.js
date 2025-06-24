@@ -57,7 +57,7 @@ async function destroyAirplane(id) {
   } catch (error) {
     if (error.statusCode === StatusCodes.NOT_FOUND) {
       throw new AppError(
-        `The airplane you request to delete with id: ${id} is not present`,
+        `The airplane you requested to delete with id: ${id} is not present`,
         StatusCodes.NOT_FOUND
       );
     }
@@ -69,9 +69,32 @@ async function destroyAirplane(id) {
   }
 }
 
+async function updateAirplane(id, data) {
+  try {
+    const airplane = await airplaneRepository.update(id, data);
+    return airplane;
+  } catch (error) {
+    if (error.statusCode === StatusCodes.NOT_FOUND) {
+      throw new AppError(
+        `The airplane you requested to update with id: ${id} is not present`,
+        StatusCodes.NOT_FOUND
+      );
+    }
+    if (error.name === "SequelizeValidationError") {
+      const explanation = error.errors.map((err) => err.message);
+      throw new AppError(explanation, StatusCodes.BAD_REQUEST);
+    }
+    throw new AppError(
+      `Cannot update the airplane with id: ${id}`,
+      StatusCodes.INTERNAL_SERVER_ERROR
+    );
+  }
+}
+
 module.exports = {
   createAirplane,
   getAirplanes,
   getAirplane,
   destroyAirplane,
+  updateAirplane,
 };
